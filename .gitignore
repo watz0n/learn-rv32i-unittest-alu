@@ -1,0 +1,8 @@
+# Ignore test data
+/project/project
+/project/target
+/target
+/test_run_dir
+/*.in
+/*.out
+/*.cmd
