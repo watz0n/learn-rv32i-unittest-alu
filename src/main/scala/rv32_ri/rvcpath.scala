@@ -11,7 +11,7 @@ import chisel3._
 import chisel3.util._
 import rvcommon._
 
-Combine control path (cpath) and data path (dpath) into a coreclass c2d_io extends Bundle {
+class c2d_io extends Bundle {
     val alu_func = Output(UInt(rvalu.X.getWidth.W))
 }
 

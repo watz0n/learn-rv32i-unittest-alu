@@ -9,13 +9,13 @@ Current implementation has these features:
 * Unit-Test for simple instructions sanity check
 * Simuate Magic RAM read instruction from Unit-Test
 
-This project start from the lecture [Berkeley CS152 FA16, L3: From CISC to RISC](http://www-inst.eecs.berkeley.edu/~cs152/fa16/lectures/L03-CISCRISC.pdf), Reg-Reg structure at page 10, until merged structure at page 12. But this diagram I thought it's from the lecture in [Berkeley CS61C SP16](http://inst.eecs.berkeley.edu/~cs61c/sp16/), thus the wire from `inst<16:0>` to `ALU Control` is not suitable for current RV Core module. Therefore, I draw [some diagram](https://github.com/watz0n/chisel3-rv32i-unittest-alu/tree/master/doc) to demystify the data-flow in fixed RV Core module.
+This project start from the lecture [Berkeley CS152 FA16, L3: From CISC to RISC](http://www-inst.eecs.berkeley.edu/~cs152/fa16/lectures/L03-CISCRISC.pdf), Reg-Reg structure at page 10, until merged structure at page 12. But this diagram I thought it's from the lecture in [Berkeley CS61C SP16](http://inst.eecs.berkeley.edu/~cs61c/sp16/), thus the wire from `inst<16:0>` to `ALU Control` is not suitable for current RV Core module. Therefore, I draw [some diagram](https://github.com/watz0n/learn-rv32i-unittest-alu/tree/master/doc) to demystify the data-flow in fixed RV Core module.
 
 There are no Memory module in project, so I use unit-test function to simulate memory read-back operation for instruction path. And this function work normally to help me continue developing progress.
 
 If you wish to have more fundamental learning material, please reference the previous Chisel3 walkthrough, [chisel3-gcd](https://github.com/watz0n/chisel3-gcd).
 
-Adhere, we are talking about how to use Unit-Test for ALU module functionality in this repo. If you are interesting how I implement this project from scratch and handle the Chisel3 error in detail, please reference [my development notes]().But it would be under-construction before I ready the documents for chisel3-gcd.
+Adhere, we are talking about how to use Unit-Test for ALU module functionality in this repo. If you are interesting how I implement this project from scratch and handle the Chisel3 error in detail, please reference [my development notes](https://watz0n.github.io/blog/en-post/2018/01/10/learn-rv32i-series-en.html).But it would be under-construction before the documents for chisel3-gcd is ready.
 
 Setup Chisel3 Build Environment
 ===
@@ -59,8 +59,8 @@ export PATH=$PATH:$VERILATOR_ROOT/bin
 Get the repo.
 ===
 ```bash
-git clone https://github.com/watz0n/chisel3-rv32i-unittest-alu.git
-cd chisel3-rv32i-unittest-alu
+git clone https://github.com/watz0n/learn-rv32i-unittest-alu.git
+cd learn-rv32i-unittest-alu
 ```
 Directory structue in repo.
 ===
@@ -115,6 +115,26 @@ There is a more strong cleaner, not only clean meta-data, but also clean compile
 bash clear-deep.sh
 ```
 
+Debug by Value Change Dump (VCD) File
+===
+Under `./test_run_dir` directory, there are tester directories.
+For example:
+```bash
+# Execute
+sbt "testOnly *rvsim_rr.RVCoreRRPeekPokeSpec"
+#...
+# Verilog code would be
+./test_run_dir/rvsim_rr.RVCoreRRPeekPokeSpec626129560/rvcore.v
+# Verilog VCD File would be
+./test_run_dir/rvsim_rr.RVCoreRRPeekPokeSpec626129560/rvcore.vcd
+```
+* rvsim_rr : unit-test package name
+* RVCoreRRPeekPokeSpec : unit-test class name
+* 626129560 : random seed for Verilator
+* rvcore : the Module class name in unit-test
+
+All test use same directory, result would be overwrite by next test. But it would stop on error for our debug.
+
 Learning Material
 ===
 
@@ -137,11 +157,12 @@ Lots of Chisel3 use cases and examples.
 
 Projects
 ---
-* [GitHub chisel3-gcd](https://github.com/watz0n/chisel3-gcd) : My Chisel3 learning experience, focus on how to link HDL (Verilog/VHDL) experience with Chisel3 design pattern, and test Chisel3 test-bench fesibility.
+* [GitHub chisel3-gcd](https://github.com/watz0n/learn-chisel3-gcd) : My Chisel3 learning experience, focus on how to link HDL (Verilog/VHDL) experience with Chisel3 design pattern, and test Chisel3 test-bench fesibility.
 
 FAQs
 ===
 *Hey! You have some typo or something wrong! Where are you?*
 * Directly use issue or pull request
 * E-Mail: watz0n.tw@gmail.com
-* Website: TBD
+* Website: https://blog.watz0n.tech/
+* Backup: https://watz0n.github.io/
